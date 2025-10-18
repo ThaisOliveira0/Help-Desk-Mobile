@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_background"
+    android:elevation="3dp">
+
+    <ImageView
+        android:id="@+id/imgIcone"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:tint="#333333"
+        android:layout_gravity="center_horizontal"
+        android:src="@android:drawable/ic_menu_manage" />
+
+    <TextView
+        android:id="@+id/txtIdChamado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: 2548781651"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/txtAssunto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Assunto: Problema com a impressora"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/txtData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data: 21/03/2024"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        android:textColor="#555555" />
+</LinearLayout>
