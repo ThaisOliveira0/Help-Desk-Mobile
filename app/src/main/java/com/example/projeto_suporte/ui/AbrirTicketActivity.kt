@@ -1,9 +1,8 @@
-package com.example.projeto_suporte.ui.chamados
+package com.example.projeto_suporte.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projeto_suporte.databinding.ActivityAbrirTicketBinding
-import com.example.projeto_suporte.ui.chamados.AbrirTicketActivity
 
 class AbrirTicketActivity : AppCompatActivity() {
 

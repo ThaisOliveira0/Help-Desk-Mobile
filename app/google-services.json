@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919333884365",
+    "project_id": "projeto-suporte-fatec",
+    "storage_bucket": "projeto-suporte-fatec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919333884365:android:e262ee54308eef990d3484",
+        "android_client_info": {
+          "package_name": "com.example.projeto_suporte"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn376hBGPDIJrQrMpqWTiP_s8fHmQzWKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

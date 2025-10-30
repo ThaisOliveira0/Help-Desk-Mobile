@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ProjetoSuporte">
 
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +21,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.chamados.ChamadosActivity" />
-        <activity android:name=".ui.chamados.AbrirTicketActivity" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.ChamadosActivity" />
+        <activity android:name=".ui.AbrirTicketActivity" />
 
 
     </application>

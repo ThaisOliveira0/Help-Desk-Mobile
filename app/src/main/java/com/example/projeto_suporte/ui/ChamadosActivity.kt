@@ -1,4 +1,4 @@
-package com.example.projeto_suporte.ui.chamados
+package com.example.projeto_suporte.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projeto_suporte.databinding.ActivityChamadosBinding
 import com.example.projeto_suporte.model.Chamado
-import com.example.projeto_suporte.ui.chamados.AbrirTicketActivity
-
-
+import com.example.projeto_suporte.ui.chamados.ChamadoAdapter
 
 
 class ChamadosActivity : AppCompatActivity() {
