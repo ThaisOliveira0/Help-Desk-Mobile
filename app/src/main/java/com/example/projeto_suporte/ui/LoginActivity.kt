@@ -1,5 +1,6 @@
 package com.example.projeto_suporte.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +17,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
-
-        binding.btnEntrar.setOnClickListener {
+        val botaoEntrar = binding.btnEntrar
+        //Lógica de realizar login
+        botaoEntrar.setOnClickListener {
             val email = binding.txtEmail.text.toString().trim()
             val senha = binding.txtSenha.text.toString().trim()
+
 
             if (email.isNotEmpty() && senha.isNotEmpty()) {
                 // Lógica para autenticar com o Firebase
@@ -27,6 +30,8 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, ChamadosActivity::class.java)
+                            startActivity(intent)
                         } else {
                             // Falha no login
                             Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
@@ -35,6 +40,12 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
             }
+        }
+        //Levar ao cadastro
+        val botaoCadastro = binding.btnCadastro
+        botaoCadastro.setOnClickListener {
+            val intent = Intent(this, CadastroActivity::class.java)
+            startActivity(intent)
         }
     }
 }

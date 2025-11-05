@@ -1,4 +1,4 @@
-package com.example.projeto_suporte.ui
+package com.example.projeto_suporte
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.projeto_suporte.databinding.ActivityMainBinding
+import com.example.projeto_suporte.ui.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 
 // 1. As variáveis foram movidas para dentro da classe
