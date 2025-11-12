@@ -2,6 +2,7 @@ package com.example.projeto_suporte.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -75,4 +76,29 @@ class CadastroActivity : AppCompatActivity() {
             return Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun addNewUser(nome: String, email: String, idade: Int) {
+        // 2. Prepare os dados como um Map ou um objeto de dados (data class)
+        val user = hashMapOf(
+            "nome" to nome,
+            "email" to email,
+            "idade" to idade,
+            "timestampCriacao" to com.google.firebase.firestore.FieldValue.serverTimestamp() // Adiciona um timestamp do servidor
+        )
+        // 3. Adicione os dados à coleção "Usuarios"
+        // O método .add() gera um ID de documento automático para você
+        db.collection("Usuarios")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "Documento adicionado com ID: ${documentReference.id}")
+                // Aqui você pode adicionar lógica de sucesso, como mostrar uma mensagem
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Erro ao adicionar documento", e)
+                // Aqui você pode adicionar lógica de erro
+            }
+    }
+    companion object {
+        private const val TAG = "FirestoreHelper"
+    }
+
 }
