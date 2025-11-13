@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Projeto-Suporte</string>
+
+    <string-array name="opcoes_categorias">
+        <item>Solicitações / Requisições</item>
+        <item>Outros</item>
+        <item>Periféricos</item>
+        <item>e Acessos</item>
+        <item>Software / Sistemas</item>
+        <item>Hardware</item>
+        <item>Conectividade</item>
+        <item>e Comunicação</item>
+
+    </string-array>
 </resources>

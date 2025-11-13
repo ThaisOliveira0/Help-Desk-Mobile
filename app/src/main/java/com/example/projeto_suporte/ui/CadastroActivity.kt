@@ -1,6 +1,7 @@
 package com.example.projeto_suporte.ui
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -10,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.projeto_suporte.R
 import com.example.projeto_suporte.databinding.ActivityCadastroBinding
+import com.example.projeto_suporte.enums.TipoUsuario
+import com.example.projeto_suporte.model.Usuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
@@ -19,6 +22,7 @@ class CadastroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCadastroBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,30 +79,35 @@ class CadastroActivity : AppCompatActivity() {
         if(senha != confirmarSenha){
             return Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
         }
+
+        auth.createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    var firebaseUser = auth.currentUser
+                    val userId = firebaseUser?.uid ?: return@addOnCompleteListener
+                    val usuario = Usuario(userId, nome, sobrenome,email, dataNasc, TipoUsuario.CLIENTE);
+
+                    addNewUser(usuario);
+                }
+            }
     }
-    private fun addNewUser(nome: String, email: String, idade: Int) {
-        // 2. Prepare os dados como um Map ou um objeto de dados (data class)
-        val user = hashMapOf(
-            "nome" to nome,
-            "email" to email,
-            "idade" to idade,
-            "timestampCriacao" to com.google.firebase.firestore.FieldValue.serverTimestamp() // Adiciona um timestamp do servidor
-        )
-        // 3. Adicione os dados à coleção "Usuarios"
-        // O método .add() gera um ID de documento automático para você
+
+    private fun addNewUser(usuario: Usuario) {
         db.collection("Usuarios")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "Documento adicionado com ID: ${documentReference.id}")
-                // Aqui você pode adicionar lógica de sucesso, como mostrar uma mensagem
+            .document(usuario.email)
+            .set(usuario)
+            .addOnSuccessListener {
+                // Dados salvos com sucesso no Firestore
+                Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Erro ao adicionar documento", e)
-                // Aqui você pode adicionar lógica de erro
+                // Caso ocorra um erro ao salvar no Firestore
+                Toast.makeText(this, "Ocorreu um erro ao realizar o cadastro.", Toast.LENGTH_SHORT).show()
+                println("Erro ao salvar no Firestore: ${e.message}")
             }
-    }
-    companion object {
-        private const val TAG = "FirestoreHelper"
+
     }
 
 }

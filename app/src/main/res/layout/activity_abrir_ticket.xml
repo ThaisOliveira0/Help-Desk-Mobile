@@ -41,94 +41,12 @@
             android:textStyle="bold"
             android:layout_marginBottom="12dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/categoria_spinner"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="24dp"
-            android:weightSum="4">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_suporte"
-                    android:background="#E3E3E3"
-                    android:padding="8dp"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:text="Hardware"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_email"
-                    android:background="#E3E3E3"
-                    android:padding="8dp"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:text="Software"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_suporte"
-                    android:background="#E3E3E3"
-                    android:padding="8dp"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:text="Sistema"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_suporte"
-                    android:background="#E3E3E3"
-                    android:padding="8dp"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:text="Teste"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
