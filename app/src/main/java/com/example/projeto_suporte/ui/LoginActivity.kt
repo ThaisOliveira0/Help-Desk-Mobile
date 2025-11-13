@@ -18,22 +18,19 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
         val botaoEntrar = binding.btnEntrar
-        //Lógica de realizar login
         botaoEntrar.setOnClickListener {
             val email = binding.txtEmail.text.toString().trim()
             val senha = binding.txtSenha.text.toString().trim()
 
 
             if (email.isNotEmpty() && senha.isNotEmpty()) {
-                // Lógica para autenticar com o Firebase
                 auth.signInWithEmailAndPassword(email, senha)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, AbrirTicketActivity::class.java)
+                            val intent = Intent(this, MenuUsuarioActivity::class.java)
                             startActivity(intent)
                         } else {
-                            // Falha no login
                             Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -41,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
             }
         }
-        //Levar ao cadastro
         val botaoCadastro = binding.btnCadastro
         botaoCadastro.setOnClickListener {
             val intent = Intent(this, CadastroActivity::class.java)

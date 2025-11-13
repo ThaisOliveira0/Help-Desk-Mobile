@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSuporte">
         <activity
+            android:name=".ui.ChatsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.DetalheTicketActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MenuUsuarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.CadastroActivity"
             android:exported="false" />
         <activity

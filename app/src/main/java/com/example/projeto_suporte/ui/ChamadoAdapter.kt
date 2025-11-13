@@ -1,4 +1,4 @@
-package com.example.projeto_suporte.ui.chamados
+package com.example.projeto_suporte.ui
 
 import android.view.LayoutInflater
 import android.view.View

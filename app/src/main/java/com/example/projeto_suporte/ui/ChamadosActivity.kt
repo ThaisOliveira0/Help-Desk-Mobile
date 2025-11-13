@@ -1,13 +1,10 @@
 package com.example.projeto_suporte.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projeto_suporte.databinding.ActivityChamadosBinding
 import com.example.projeto_suporte.model.Chamado
-import com.example.projeto_suporte.ui.chamados.ChamadoAdapter
-
 
 class ChamadosActivity : AppCompatActivity() {
 
@@ -27,9 +24,6 @@ class ChamadosActivity : AppCompatActivity() {
         binding.recyclerChamados.layoutManager = LinearLayoutManager(this)
         binding.recyclerChamados.adapter = ChamadoAdapter(listaChamados)
 
-        binding.btnAbrirTicket.setOnClickListener {
-            val intent = Intent(this, AbrirTicketActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 }

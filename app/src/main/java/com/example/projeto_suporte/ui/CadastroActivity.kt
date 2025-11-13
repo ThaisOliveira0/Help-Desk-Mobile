@@ -3,7 +3,6 @@ package com.example.projeto_suporte.ui
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,7 @@ import com.example.projeto_suporte.R
 import com.example.projeto_suporte.databinding.ActivityCadastroBinding
 import com.example.projeto_suporte.enums.TipoUsuario
 import com.example.projeto_suporte.model.Usuario
+import com.example.projeto_suporte.ui.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
@@ -56,8 +56,9 @@ class CadastroActivity : AppCompatActivity() {
 
         val datePicker = DatePickerDialog(
             this,
-            {_, selectedYear, selectedMonth, selectedDay ->
-                val formattedDate = "%02d/%02d/%04d".format(selectedDay, selectedMonth + 1, selectedYear)
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate =
+                    "%02d/%02d/%04d".format(selectedDay, selectedMonth + 1, selectedYear)
                 binding.txtDataNasc.setText(formattedDate)
             },
             year, month, day
@@ -85,7 +86,8 @@ class CadastroActivity : AppCompatActivity() {
                 if(task.isSuccessful) {
                     var firebaseUser = auth.currentUser
                     val userId = firebaseUser?.uid ?: return@addOnCompleteListener
-                    val usuario = Usuario(userId, nome, sobrenome,email, dataNasc, TipoUsuario.CLIENTE);
+                    val usuario =
+                        Usuario(userId, nome, sobrenome, email, dataNasc, TipoUsuario.CLIENTE);
 
                     addNewUser(usuario);
                 }
