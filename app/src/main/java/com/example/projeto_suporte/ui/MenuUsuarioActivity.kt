@@ -1,5 +1,6 @@
 package com.example.projeto_suporte.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,19 +11,27 @@ import com.example.projeto_suporte.ui.AbrirTicketActivity
 import com.example.projeto_suporte.ui.DetalheTicketActivity
 import com.example.projeto_suporte.ui.ChatsActivity
 import com.example.projeto_suporte.ui.models.Ticket
+import com.google.firebase.auth.FirebaseAuth
 
 class MenuUsuarioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuUsuarioBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMenuUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val usuario = FirebaseAuth.getInstance().currentUser
 
-        val nomeUsuario = intent.getStringExtra("nome") ?: "Usuário"
-        binding.tvNomeUsuario.text = "Olá, $nomeUsuario"
+        if (usuario != null) {
+            binding.tvNomeUsuario.text = "Olá, ${usuario.displayName}"
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.recyclerTickets.layoutManager = LinearLayoutManager(this)
 

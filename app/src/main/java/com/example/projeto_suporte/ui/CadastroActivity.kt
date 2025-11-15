@@ -12,8 +12,8 @@ import com.example.projeto_suporte.R
 import com.example.projeto_suporte.databinding.ActivityCadastroBinding
 import com.example.projeto_suporte.enums.TipoUsuario
 import com.example.projeto_suporte.model.Usuario
-import com.example.projeto_suporte.ui.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
 
@@ -84,12 +84,30 @@ class CadastroActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful) {
-                    var firebaseUser = auth.currentUser
-                    val userId = firebaseUser?.uid ?: return@addOnCompleteListener
-                    val usuario =
-                        Usuario(userId, nome, sobrenome, email, dataNasc, TipoUsuario.CLIENTE);
+                    val firebaseUser = auth.currentUser ?: return@addOnCompleteListener
+                    val userId = firebaseUser.uid
 
-                    addNewUser(usuario);
+                    // atualiza o displayName no Firebase Auth
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(nome)
+                        .build()
+
+                    firebaseUser.updateProfile(profileUpdates).addOnCompleteListener { profileTask ->
+                        if(profileTask.isSuccessful) {
+                            // salva os dados no Firestore
+                            val usuario =
+                                Usuario(userId, nome, sobrenome, email, dataNasc, TipoUsuario.CLIENTE)
+
+                            addNewUser(usuario)
+                        } else {
+                            // Mesmo que falhe, podemos tentar salvar no Firestore, mas avisamos o usuário/dev
+                            Toast.makeText(this, "Falha ao salvar o nome de exibição.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    // highlight-end
+
+                } else {
+                    Toast.makeText(this, "Erro ao criar usuário: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
     }
