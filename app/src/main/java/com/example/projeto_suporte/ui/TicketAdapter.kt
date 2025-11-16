@@ -1,41 +1,45 @@
 package com.example.projeto_suporte.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projeto_suporte.R
-import com.example.projeto_suporte.ui.models.Ticket
+import com.example.projeto_suporte.databinding.ItemChamadoBinding // <-- 1. Importe a classe de Binding do seu item
+import com.example.projeto_suporte.model.Chamado
 
 class TicketAdapter(
-    private val lista: List<Ticket>,
-    private val onClick: (Ticket) -> Unit
+    private var listaChamados: List<Chamado>,
+    private val onClick: (Chamado) -> Unit
 ) : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>() {
 
-    inner class TicketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgIcone: ImageView = itemView.findViewById(R.id.imgIcone)
-        val txtId: TextView = itemView.findViewById(R.id.txtIdChamado)
-        val txtAssunto: TextView = itemView.findViewById(R.id.txtAssunto)
-        val txtData: TextView = itemView.findViewById(R.id.txtData)
+    inner class TicketViewHolder(private val binding: ItemChamadoBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(chamado: Chamado) {
+            binding.txtIdChamado.text = "Chamado #${chamado.numeroChamado}"
+            binding.txtAssunto.text = chamado.categoria
+            binding.txtData.text = chamado.dataAbertura
+
+            // Configura o clique no item
+            binding.root.setOnClickListener { onClick(chamado) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_chamado, parent, false)
-        return TicketViewHolder(view)
+        val binding = ItemChamadoBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return TicketViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
-        val ticket = lista[position]
-
-        holder.txtId.text = "ID: ${ticket.id}"
-        holder.txtAssunto.text = "Assunto: ${ticket.assunto}"
-        holder.txtData.text = "Data: ${ticket.data}"
-
-        holder.itemView.setOnClickListener { onClick(ticket) }
+        val chamado = listaChamados[position]
+        holder.bind(chamado)
     }
 
-    override fun getItemCount() = lista.size
+    fun updateData(novaLista: List<Chamado>) {
+        this.listaChamados = novaLista
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = listaChamados.size
 }

@@ -26,11 +26,11 @@ class ChamadoAdapter(private val listaChamados: List<Chamado>) :
     }
 
     override fun onBindViewHolder(holder: ChamadoViewHolder, position: Int) {
-        val chamado = listaChamados[position]
-        holder.txtId.text = "ID: ${chamado.id}"
-        holder.txtAssunto.text = "Assunto: ${chamado.assunto}"
-        holder.txtData.text = "Data: ${chamado.data}"
-        holder.imgIcone.setImageResource(android.R.drawable.ic_menu_manage)
+//        val chamado = listaChamados[position]
+//        holder.txtId.text = "ID: ${chamado.id}"
+//        holder.txtAssunto.text = "Assunto: ${chamado.assunto}"
+//        holder.txtData.text = "Data: ${chamado.data}"
+//        holder.imgIcone.setImageResource(android.R.drawable.ic_menu_manage)
     }
 
     override fun getItemCount(): Int = listaChamados.size

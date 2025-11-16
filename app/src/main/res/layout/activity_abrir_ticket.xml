@@ -73,7 +73,7 @@
             android:gravity="center" />
 
         <EditText
-            android:id="@+id/edtDescricao"
+            android:id="@+id/txtDescricao"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:hint="insira seu texto aqui..."

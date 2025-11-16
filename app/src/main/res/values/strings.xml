@@ -4,8 +4,7 @@
     <string-array name="opcoes_categorias">
         <item>Solicitações / Requisições</item>
         <item>Outros</item>
-        <item>Periféricos</item>
-        <item>e Acessos</item>
+        <item>Periféricos e Acessos</item>
         <item>Software / Sistemas</item>
         <item>Hardware</item>
         <item>Conectividade</item>
