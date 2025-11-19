@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F7F7F7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#A8B5E0"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/txtSaudacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Painel do Administrador"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnUsers"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Cadastrar Agente"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/btn_primary"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnProducts"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Remover Agente"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/btn_primary"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnOrders"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Visualizar Chamados"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/btn_primary"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnReports"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Gerar Relatórios"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:background="@drawable/btn_primary" />
+
+    </LinearLayout>
+
+</LinearLayout>

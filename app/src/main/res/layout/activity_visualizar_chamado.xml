@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#A8B5E0"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalhe do Chamado"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="16dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/txtNumeroChamado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chamado #1234"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#333"/>
+
+                <TextView
+                    android:id="@+id/txtNomeCliente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Cliente: João Silva"
+                    android:textSize="16sp"
+                    android:textColor="#444"/>
+
+                <TextView
+                    android:id="@+id/txtCategoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Categoria: Hardware"
+                    android:textSize="15sp"
+                    android:textColor="#555"/>
+
+                <TextView
+                    android:id="@+id/txtData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Data: 10/11/2025 - 14:32"
+                    android:textSize="15sp"
+                    android:textColor="#666"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="16dp"
+                android:elevation="3dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/txtDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Texto completo da descrição do chamado..."
+                    android:textColor="#444"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnMarcarResolvido"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="ALTERAR STATUS"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:backgroundTint="#A8B5E0"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnContato"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="RESPONDER CHAMADO"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:backgroundTint="#A8B5E0"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

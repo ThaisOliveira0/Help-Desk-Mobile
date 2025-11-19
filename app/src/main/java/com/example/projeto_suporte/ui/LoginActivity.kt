@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projeto_suporte.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.example.projeto_suporte.ui.VisualizarChamadoActivity
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, MenuUsuarioActivity::class.java)
+                            val intent = Intent(this, VisualizarChamadoActivity::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()

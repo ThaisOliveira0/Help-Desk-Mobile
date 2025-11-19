@@ -86,15 +86,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="vertical" />
-    <Button
-        android:id="@+id/btnAbrirTicket"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Abrir Ticket"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#A8B5E0"
-        android:layout_marginTop="24dp" />
+
 
 
 </LinearLayout>
