@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="12dp"
+    android:elevation="4dp"
+    android:layout_margin="6dp"
+    android:gravity="center"
+    android:layout_marginBottom="10dp"
+    android:clipToOutline="true">
+
+    <ImageView
+        android:id="@+id/imgIcone"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="icone_categoria"
+        android:src="@drawable/ic_andamento" />
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Conectividade"
+        android:textSize="15sp"
+        android:textColor="#333"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+</LinearLayout>

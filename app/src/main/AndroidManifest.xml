@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSuporte">
         <activity
+            android:name=".ui.GuiaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.RelatoriosActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.VisualizarChamadoActivity"
             android:exported="false" />
         <activity

@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, VisualizarChamadoActivity::class.java)
+                            val intent = Intent(this, GuiaActivity::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
