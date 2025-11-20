@@ -1,5 +1,9 @@
 package com.example.projeto_suporte.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Chamado(
     val id: String = "",
     val userId: String = "",
@@ -10,4 +14,4 @@ data class Chamado(
     val status: String = "Aberto",
     val resposta: String = "",
     val idAtendente: String = ""
-)
+) : Parcelable

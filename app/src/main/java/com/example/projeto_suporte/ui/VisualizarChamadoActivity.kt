@@ -2,6 +2,7 @@ package com.example.projeto_suporte.ui
 
 import com.example.projeto_suporte.databinding.ActivityVisualizarChamadoBinding
 import android.os.Bundle
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -14,6 +15,16 @@ class VisualizarChamadoActivity : AppCompatActivity() {
 
         binding = ActivityVisualizarChamadoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnVoltar.setOnClickListener {
+            finish()
+        }
+        binding.btnContato.setOnClickListener {
+            val intent = Intent(this, ResponderChamadoActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         val numero = intent.getStringExtra("numero")
         val cliente = intent.getStringExtra("cliente")

@@ -13,6 +13,21 @@
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp">
 
+        <!-- Botão de voltar -->
+        <ImageView
+            android:id="@+id/btnVoltar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#FFFFFF"
+            android:contentDescription="Voltar" />
+
+        <!-- Espaço entre ícone e título -->
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="wrap_content" />
+
+        <!-- Título -->
         <TextView
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
@@ -22,6 +37,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"/>
     </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.projeto_suporte.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projeto_suporte.databinding.ActivityMenuAdminBinding
@@ -13,5 +14,11 @@ class MenuAdminActivity : AppCompatActivity() {
 
         binding = ActivityMenuAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnReports.setOnClickListener {
+            val intent = Intent(this, RelatoriosActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

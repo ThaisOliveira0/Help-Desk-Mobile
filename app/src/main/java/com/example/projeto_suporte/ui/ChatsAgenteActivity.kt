@@ -1,10 +1,9 @@
 package com.example.projeto_suporte.ui
 
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_suporte.R
@@ -15,6 +14,10 @@ class ChatsAgenteActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_chats_agente)
 
+        val btnVoltar = findViewById<ImageButton>(R.id.btnVoltar)
+        btnVoltar.setOnClickListener {
+            finish()
+        }
 
         val recycler = findViewById<RecyclerView>(R.id.recyclerChatsAgente)
         recycler.layoutManager = LinearLayoutManager(this)
@@ -27,7 +30,7 @@ class ChatsAgenteActivity : AppCompatActivity() {
         )
 
         val adapter = ChatAgenteAdapter(listaChats) { chat ->
-
+            // Clique em um chat
         }
 
         recycler.adapter = adapter

@@ -15,6 +15,10 @@ class GuiaActivity : AppCompatActivity() {
         binding = ActivityGuiaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnVoltarGuia.setOnClickListener {
+            finish()
+        }
+
         val listaCategorias = listOf(
             GuiaItem("Conectividade", R.drawable.conectividade, "Descrição..."),
             GuiaItem("Hardware", R.drawable.ic_suporte, "Descrição..."),
@@ -27,9 +31,8 @@ class GuiaActivity : AppCompatActivity() {
         )
 
         val adapterCategorias = GuiaAdapter(listaCategorias) { abrirModal(it) }
-        binding.rvCategorias.adapter = adapterCategorias
         binding.rvCategorias.layoutManager = LinearLayoutManager(this)
-
+        binding.rvCategorias.adapter = adapterCategorias
 
         val listaStatus = listOf(
             GuiaItem("Concluído", R.drawable.ic_concluido, "Chamado finalizado"),
@@ -39,11 +42,11 @@ class GuiaActivity : AppCompatActivity() {
         )
 
         val adapterStatus = GuiaAdapter(listaStatus) { abrirModal(it) }
-        binding.rvStatus.adapter = adapterStatus
         binding.rvStatus.layoutManager = LinearLayoutManager(this)
+        binding.rvStatus.adapter = adapterStatus
     }
 
     private fun abrirModal(item: GuiaItem) {
-        // abrir popup
+
     }
 }

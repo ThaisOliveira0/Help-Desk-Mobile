@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSuporte">
         <activity
+            android:name=".ui.ResponderChamadoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ChatsAgenteActivity"
             android:exported="false" />
         <activity
@@ -51,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".ui.ChamadosActivity" />
+        <activity android:name=".ui.MenuAgenteActivity" />
         <activity android:name=".ui.AbrirTicketActivity" />
     </application>
 

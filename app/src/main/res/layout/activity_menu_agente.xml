@@ -30,16 +30,19 @@
             android:inputType="text" />
 
         <ImageView
+            android:id="@+id/btnGuia"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:src="@android:drawable/ic_menu_info_details" />
 
         <ImageView
+            android:id="@+id/btnChat"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="4dp"
             android:src="@android:drawable/ic_menu_send" />
+
     </LinearLayout>
 
     <TextView
