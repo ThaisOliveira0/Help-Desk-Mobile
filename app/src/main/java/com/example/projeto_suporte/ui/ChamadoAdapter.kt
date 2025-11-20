@@ -7,7 +7,8 @@ import com.example.projeto_suporte.databinding.ItemChamadoBinding
 import com.example.projeto_suporte.model.Chamado
 
 class ChamadoAdapter(
-    private val listaChamados: List<Chamado>,
+    // 1. Mude de 'val' para 'var' para que a lista possa ser alterada
+    private var listaChamados: List<Chamado>,
     private val onItemClick: (Chamado) -> Unit
 ) : RecyclerView.Adapter<ChamadoAdapter.ChamadoViewHolder>() {
 
@@ -38,4 +39,9 @@ class ChamadoAdapter(
     }
 
     override fun getItemCount(): Int = listaChamados.size
+
+    fun updateData(novaLista: List<Chamado>) {
+        this.listaChamados = novaLista // Substitui a lista antiga pela nova
+        notifyDataSetChanged()      // Notifica o adapter que os dados mudaram
+    }
 }
