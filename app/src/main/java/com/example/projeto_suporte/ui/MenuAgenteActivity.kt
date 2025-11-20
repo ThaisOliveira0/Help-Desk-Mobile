@@ -154,7 +154,7 @@ class MenuAgenteActivity : AppCompatActivity() {
 
     private fun carregarChamadosAbertos(categoria: String? = null) {
         var query: Query = db.collection("Chamados")
-            .whereEqualTo("status", "Aberto")
+            .whereNotEqualTo("status", "Fechado")
 
         if (!categoria.isNullOrEmpty()) {
             query = query.whereEqualTo("categoria", categoria)

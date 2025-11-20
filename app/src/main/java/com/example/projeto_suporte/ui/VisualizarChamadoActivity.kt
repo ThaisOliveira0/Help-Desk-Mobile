@@ -38,7 +38,6 @@ class VisualizarChamadoActivity : AppCompatActivity() {
             carregarNomeDoCliente(userId)
         }
 
-        // Carrega o resto e configura os botões
         carregarDetalhesDoChamado(chamadoId)
         setupListeners(chamadoId, userId)
     }
@@ -46,6 +45,10 @@ class VisualizarChamadoActivity : AppCompatActivity() {
     private fun setupListeners(chamadoId: String, userId: String?) {
         binding.btnVoltar.setOnClickListener {
             finish()
+        }
+
+        binding.btnMarcarAnalise.setOnClickListener {
+            atualizarStatusChamado(chamadoId, "Em Análise")
         }
 
         binding.btnContato.setOnClickListener {
@@ -56,14 +59,30 @@ class VisualizarChamadoActivity : AppCompatActivity() {
         }
     }
 
+    private fun atualizarStatusChamado(chamadoId: String, novoStatus: String) {
+        db.collection("Chamados").document(chamadoId)
+            .update("status", novoStatus)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Chamado marcado como '$novoStatus'", Toast.LENGTH_SHORT).show()
+                binding.btnMarcarAnalise.isEnabled = false
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Falha ao atualizar o status do chamado", Toast.LENGTH_SHORT).show()
+                Log.e("FIRESTORE_UPDATE", "Erro ao atualizar status", e)
+            }
+    }
+    // highlight-end
+
     private fun preencherDadosNaTela(chamado: Chamado) {
         binding.txtNumeroChamado.text = "Chamado #${chamado.numeroChamado}"
         binding.txtCategoria.text = chamado.categoria
         binding.txtData.text = "Aberto em: ${chamado.dataAbertura}"
         binding.txtDescricao.text = chamado.descricao
 
-        if (chamado.status == "Fechado") {
+        // Esconde os botões de ação se o chamado não estiver mais "Aberto"
+        if (chamado.status != "Aberto") {
             binding.btnContato.visibility = View.GONE
+            binding.btnMarcarAnalise.visibility = View.GONE
         }
     }
 
@@ -79,7 +98,6 @@ class VisualizarChamadoActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { documents ->
                     if (documents != null && !documents.isEmpty) {
-                        // Pega o primeiro documento da lista de resultados
                         val document = documents.documents[0]
                         val nome = document.getString("nome") ?: "Cliente (sem nome)"
                         binding.txtNomeCliente.text = "Cliente: $nome"

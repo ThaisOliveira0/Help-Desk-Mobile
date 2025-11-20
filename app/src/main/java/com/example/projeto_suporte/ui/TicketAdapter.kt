@@ -2,8 +2,10 @@ package com.example.projeto_suporte.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projeto_suporte.databinding.ItemChamadoBinding // <-- 1. Importe a classe de Binding do seu item
+import com.example.projeto_suporte.R
+import com.example.projeto_suporte.databinding.ItemChamadoBinding
 import com.example.projeto_suporte.model.Chamado
 
 class TicketAdapter(
@@ -17,8 +19,17 @@ class TicketAdapter(
             binding.txtAssunto.text = chamado.categoria
             binding.txtData.text = chamado.dataAbertura
 
-            // Configura o clique no item
             binding.root.setOnClickListener { onClick(chamado) }
+
+            val context = binding.root.context
+            val cor = when (chamado.status) {
+                "Aberto" -> ContextCompat.getColor(context, R.color.status_aberto)
+                "Em Análise" -> ContextCompat.getColor(context, R.color.status_em_analise)
+                "Fechado" -> ContextCompat.getColor(context, R.color.status_fechado)
+                else -> ContextCompat.getColor(context, R.color.status_default) // Cor padrão
+            }
+            // Aplica a cor ao container principal do item
+            binding.containerItemChamado.setBackgroundColor(cor)
         }
     }
 
@@ -36,10 +47,10 @@ class TicketAdapter(
         holder.bind(chamado)
     }
 
+    override fun getItemCount() = listaChamados.size
+
     fun updateData(novaLista: List<Chamado>) {
         this.listaChamados = novaLista
         notifyDataSetChanged()
     }
-
-    override fun getItemCount() = listaChamados.size
 }

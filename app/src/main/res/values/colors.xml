@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Cores para Status dos Chamados -->
+    <color name="status_aberto">#E0E0E0</color> <!-- Verde claro -->
+    <color name="status_em_analise">#FFF9C4</color> <!-- Amarelo claro -->
+    <color name="status_fechado">#E8F5E9</color> <!-- Vermelho claro -->
+    <color name="status_default">#FFFFFF</color>
 </resources>

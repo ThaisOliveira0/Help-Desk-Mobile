@@ -126,7 +126,7 @@
 
 
             <Button
-                android:id="@+id/btnMarcarResolvido"
+                android:id="@+id/btnMarcarAnalise"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="ALTERAR STATUS"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_item_chamado"
     android:orientation="vertical"
     android:padding="12dp"
     android:layout_margin="8dp"
@@ -14,7 +15,8 @@
         android:layout_height="40dp"
         android:tint="#333333"
         android:layout_gravity="center_horizontal"
-        android:src="@android:drawable/ic_menu_manage" />
+        android:src="@android:drawable/ic_menu_manage"
+        android:contentDescription="Ícone do chamado" />
 
     <TextView
         android:id="@+id/txtIdChamado"
