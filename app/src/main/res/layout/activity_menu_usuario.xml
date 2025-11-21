@@ -30,17 +30,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ESTE BOTÃO AGORA SÓ LEVA PARA A LISTA DE CHATS -->
         <ImageButton
             android:id="@+id/btnChats"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_add"
-            app:tint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Ver minhas conversas"
+            android:padding="8dp"
+            android:src="@drawable/ic_chat"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:padding="8dp" />
+            app:tint="#FFFFFF" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -69,15 +72,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="" />
+        tools:listitem="@layout/item_chamado" />
 
 
+    <!-- FAB ANTIGO (agora para Tickets) foi movido para cima -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNovoTicket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Novo Ticket"
+        android:contentDescription="Abrir novo ticket"
         android:src="@drawable/ic_add"
+        app:backgroundTint="#AAB6D6"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fab_novo_chat"
+        app:layout_constraintEnd_toEndOf="@+id/fab_novo_chat"
+        android:layout_marginBottom="16dp"
+        app:tint="#FFFFFF" />
+
+    <!-- NOVO FAB PRINCIPAL (para Chat) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_novo_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Iniciar nova conversa por chat"
+        android:src="@drawable/ic_chat"
         app:tint="#FFFFFF"
         app:backgroundTint="#9EAFDA"
         app:layout_constraintBottom_toBottomOf="parent"

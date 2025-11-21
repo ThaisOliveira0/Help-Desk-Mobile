@@ -62,7 +62,8 @@ class MenuAgenteActivity : AppCompatActivity() {
         }
 
         binding.btnChat.setOnClickListener {
-            startActivity(Intent(this, ChatsAgenteActivity::class.java))
+            val intent = Intent(this, ListaChatsActivity::class.java)
+            startActivity(intent)
         }
     }
 

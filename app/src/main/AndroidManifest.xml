@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSuporte">
         <activity
+            android:name=".ui.CriarChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ListaChatsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ResponderChamadoActivity"
             android:exported="false" />
         <activity

@@ -47,11 +47,18 @@ class MenuUsuarioActivity : AppCompatActivity() {
         carregarChamadosDoUsuario()
 
         binding.btnChats.setOnClickListener {
-            startActivity(Intent(this, ChatsActivity::class.java))
+            val intent = Intent(this, ListaChatsActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnNovoTicket.setOnClickListener {
             startActivity(Intent(this, AbrirTicketActivity::class.java))
+        }
+
+        // Botão para criar um novo chat
+        binding.fabNovoChat.setOnClickListener {
+            val intent = Intent(this, CriarChatActivity::class.java) // Navega para a nova tela
+            startActivity(intent)
         }
     }
 
