@@ -22,7 +22,7 @@ class MenuAgenteActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var chamadoAdapter: ChamadoAdapter
-    private var isInitialSpinnerSelection = true // flag para controlar o primeiro disparo do spinner
+    private var isInitialSpinnerSelection = true 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +39,13 @@ class MenuAgenteActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // carrega os dados sempre que a tela fica visível
-        isInitialSpinnerSelection = true // reseta a flag do spinner
-        carregarChamadosAbertos(null) // carrega todos os chamados por padrão
+        isInitialSpinnerSelection = true
+        carregarChamadosAbertos(null)
         carregarDadosDoAgente()
     }
 
     private fun setupListeners() {
-        // listener para o botão de limpar filtro
         binding.btnLimparFiltroCategoria.setOnClickListener {
-            // carrega os dados sem filtro.
             carregarChamadosAbertos(null)
 
             isInitialSpinnerSelection = true
@@ -63,6 +60,10 @@ class MenuAgenteActivity : AppCompatActivity() {
 
         binding.btnChat.setOnClickListener {
             val intent = Intent(this, ListaChatsActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

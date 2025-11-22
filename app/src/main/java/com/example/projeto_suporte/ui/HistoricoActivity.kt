@@ -47,7 +47,9 @@ class HistoricoActivity : AppCompatActivity() {
         atualizarLista(chamados)
 
         criarMenuCategorias(chamados)
-
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
         binding.edtBuscaData.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

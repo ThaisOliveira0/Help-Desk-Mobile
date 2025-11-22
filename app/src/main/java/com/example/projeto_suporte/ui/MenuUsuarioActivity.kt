@@ -54,8 +54,11 @@ class MenuUsuarioActivity : AppCompatActivity() {
         binding.btnNovoTicket.setOnClickListener {
             startActivity(Intent(this, AbrirTicketActivity::class.java))
         }
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
-        // Botão para criar um novo chat
         binding.fabNovoChat.setOnClickListener {
             val intent = Intent(this, CriarChatActivity::class.java) // Navega para a nova tela
             startActivity(intent)

@@ -10,6 +10,7 @@
         android:layout_height="56dp"
         android:background="#A8B5E0"
         android:gravity="center_vertical"
+        android:paddingTop="16dp"
         android:paddingHorizontal="16dp">
 
         <ImageButton

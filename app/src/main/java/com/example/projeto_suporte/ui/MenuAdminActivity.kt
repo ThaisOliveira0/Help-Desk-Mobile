@@ -19,6 +19,21 @@ class MenuAdminActivity : AppCompatActivity() {
             val intent = Intent(this, RelatoriosActivity::class.java)
             startActivity(intent)
         }
-
+        binding.btnHistory.setOnClickListener {
+            val intent = Intent(this, HistoricoActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnCadastro.setOnClickListener {
+            val intent = Intent(this, CadastroFuncionarioActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnRemoverFuncionario.setOnClickListener {
+            val intent = Intent(this, RemocaoFuncionariosActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

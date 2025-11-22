@@ -12,24 +12,23 @@
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp">
 
-        <TextView
+        <ImageView
             android:id="@+id/btnVoltar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="←"
-            android:textSize="24sp"
-            android:textColor="#FFFFFF"
-            android:padding="4dp"
-            android:layout_marginRight="14dp" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="4dp" />
 
         <TextView
-            android:id="@+id/txtTitulo"
+            android:id="@+id/txtTituloHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Relatórios"
-            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:textSize="20sp" />
+            android:layout_marginStart="12dp" />
+
     </LinearLayout>
 
     <ScrollView

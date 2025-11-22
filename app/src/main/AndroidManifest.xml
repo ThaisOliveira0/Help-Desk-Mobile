@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoSuporte">
         <activity
+            android:name=".ui.RemocaoFuncionariosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CadastroFuncionarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.CriarChatActivity"
             android:exported="false" />
         <activity
