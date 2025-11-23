@@ -8,12 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projeto_suporte.databinding.ActivityVisualizarChamadoBinding
 import com.example.projeto_suporte.model.Chamado
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class VisualizarChamadoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVisualizarChamadoBinding
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,7 @@ class VisualizarChamadoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         val chamadoId = intent.getStringExtra("chamado_id")
         val userId = intent.getStringExtra("user_id") //
@@ -48,7 +51,7 @@ class VisualizarChamadoActivity : AppCompatActivity() {
         }
 
         binding.btnMarcarAnalise.setOnClickListener {
-            atualizarStatusChamado(chamadoId, "Em Análise")
+            atualizarChamado(chamadoId, "Em Análise")
         }
 
         binding.btnContato.setOnClickListener {
@@ -59,16 +62,32 @@ class VisualizarChamadoActivity : AppCompatActivity() {
         }
     }
 
-    private fun atualizarStatusChamado(chamadoId: String, novoStatus: String) {
+    private fun atualizarChamado(chamadoId: String, novoStatus: String) {
+        // Pega o ID do agente atualmente logado
+        val agenteId = auth.currentUser?.uid
+
+        if (agenteId == null) {
+            Toast.makeText(this, "Erro: Não foi possível identificar o agente.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Cria o mapa com os campos a serem atualizados: status e idAtendente
+        val atualizacoes = mapOf(
+            "status" to novoStatus,
+            "idAgente" to agenteId
+        )
+
+        // Atualiza o documento no Firestore com o mapa
         db.collection("Chamados").document(chamadoId)
-            .update("status", novoStatus)
+            .update(atualizacoes)
             .addOnSuccessListener {
-                Toast.makeText(this, "Chamado marcado como '$novoStatus'", Toast.LENGTH_SHORT).show()
-                binding.btnMarcarAnalise.isEnabled = false
+                Toast.makeText(this, "Chamado atribuído a você e marcado como '$novoStatus'", Toast.LENGTH_LONG).show()
+                binding.btnMarcarAnalise.visibility = View.GONE // Esconde o botão após a ação
+                binding.btnContato.visibility = View.VISIBLE // Garante que o botão de contato apareça
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Falha ao atualizar o status do chamado", Toast.LENGTH_SHORT).show()
-                Log.e("FIRESTORE_UPDATE", "Erro ao atualizar status", e)
+                Toast.makeText(this, "Falha ao atualizar o chamado", Toast.LENGTH_SHORT).show()
+                Log.e("FIRESTORE_UPDATE", "Erro ao atualizar chamado", e)
             }
     }
     // highlight-end

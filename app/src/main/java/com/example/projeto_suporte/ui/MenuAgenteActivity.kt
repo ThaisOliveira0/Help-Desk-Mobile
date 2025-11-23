@@ -13,6 +13,7 @@ import com.example.projeto_suporte.R
 import com.example.projeto_suporte.databinding.ActivityMenuAgenteBinding
 import com.example.projeto_suporte.model.Chamado
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -63,8 +64,12 @@ class MenuAgenteActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.btnLogout.setOnClickListener {
+            auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
+            //flags para limpar o histórico de telas e criar uma nova tarefa
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            finish()
         }
     }
 
@@ -131,7 +136,7 @@ class MenuAgenteActivity : AppCompatActivity() {
 
     private fun contarChamadosDoAgente(agenteId: String) {
         db.collection("Chamados")
-            .whereEqualTo("idAtendente", agenteId)
+            .whereEqualTo("idAgente", agenteId)
             .get()
             .addOnSuccessListener { documents ->
                 val quantidade = documents.size()
@@ -155,30 +160,44 @@ class MenuAgenteActivity : AppCompatActivity() {
     }
 
     private fun carregarChamadosAbertos(categoria: String? = null) {
-        var query: Query = db.collection("Chamados")
-            .whereNotEqualTo("status", "Fechado")
-
-        if (!categoria.isNullOrEmpty()) {
-            query = query.whereEqualTo("categoria", categoria)
+        val agenteId = auth.currentUser?.uid
+        if (agenteId == null) {
+            Toast.makeText(this, "Erro: Agente não autenticado.", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        query.orderBy("numeroChamado", Query.Direction.ASCENDING)
-            .get()
-            .addOnSuccessListener { documents ->
-                val listaChamados = if (documents != null && !documents.isEmpty) {
-                    documents.map { document ->
-                        val chamado = document.toObject(Chamado::class.java)
-                        chamado.copy(id = document.id)
+        // ----> INÍCIO DA MUDANÇA <----
+        db.collection("Chamados")
+            .where(
+                Filter.and(
+                    Filter.notEqualTo("status", "Fechado"),
+                    Filter.or(
+                        Filter.equalTo("idAgente", ""),
+                        Filter.equalTo("idAgente", agenteId)
+                    )
+                )
+            )
+            .orderBy("dataAbertura", Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    if (error.message?.contains("requires an index") == true) {
+                        Log.e("MENU_AGENTE", "ERRO DE ÍNDICE DO FIRESTORE. Verifique o Logcat para o link.", error)
+                        Toast.makeText(this, "Erro de Banco de Dados. Crie o índice necessário.", Toast.LENGTH_LONG).show()
+                    } else {
+                        Log.e("MENU_AGENTE", "Erro ao carregar chamados", error)
+                        Toast.makeText(this, "Erro ao carregar chamados.", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    emptyList()
+                    return@addSnapshotListener
                 }
-                chamadoAdapter.updateData(listaChamados)
-            }
-            .addOnFailureListener { exception ->
-                chamadoAdapter.updateData(emptyList())
-                Toast.makeText(this, "Erro ao buscar chamados.", Toast.LENGTH_SHORT).show()
-                Log.w("Firestore", "Erro ao buscar documentos: ", exception)
+
+                if (snapshots != null) {
+                    val listaChamados = snapshots.map { document ->
+                        document.toObject(Chamado::class.java).apply {
+                            this.id = document.id
+                        }
+                    }
+                    chamadoAdapter.updateData(listaChamados)
+                }
             }
     }
 }

@@ -98,20 +98,20 @@ class ResponderChamadoActivity : AppCompatActivity() {
 
         binding.btnEnviarResposta.setOnClickListener {
             val resposta = binding.edtResposta.text.toString().trim()
-            val atendenteId = auth.currentUser?.uid
-            if (resposta.isNotBlank() && atendenteId != null) {
-                enviarRespostaEFecharChamado(chamadoId, resposta, atendenteId)
+            val idAgente = auth.currentUser?.uid
+            if (resposta.isNotBlank() && idAgente != null) {
+                enviarRespostaEFecharChamado(chamadoId, resposta, idAgente)
             } else {
                 Toast.makeText(this, "Digite uma resposta.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun enviarRespostaEFecharChamado(id: String, resposta: String, atendenteId: String) {
+    private fun enviarRespostaEFecharChamado(id: String, resposta: String, idAgente: String) {
         val atualizacoes = mapOf(
             "status" to "Fechado",
             "resposta" to resposta,
-            "idAtendente" to atendenteId
+            "idAgente" to idAgente
         )
         db.collection("Chamados").document(id).update(atualizacoes)
             .addOnSuccessListener {

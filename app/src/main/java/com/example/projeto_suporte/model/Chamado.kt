@@ -1,11 +1,13 @@
 package com.example.projeto_suporte.model
 
 import android.os.Parcelable
+import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 
+@IgnoreExtraProperties
 @Parcelize
 data class Chamado(
-    val id: String = "",
+    var id: String = "",
     val userId: String = "",
     val numeroChamado: String = "",
     val categoria: String = "",
@@ -13,5 +15,5 @@ data class Chamado(
     val dataAbertura: String = "",
     val status: String = "Aberto",
     val resposta: String = "",
-    val idAtendente: String = ""
+    val idAgente: String = ""
 ) : Parcelable

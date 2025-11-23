@@ -55,8 +55,12 @@ class MenuUsuarioActivity : AppCompatActivity() {
             startActivity(Intent(this, AbrirTicketActivity::class.java))
         }
         binding.btnLogout.setOnClickListener {
+            auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
+            //flags para limpar o histórico de telas e criar uma nova tarefa
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            finish()
         }
 
         binding.fabNovoChat.setOnClickListener {

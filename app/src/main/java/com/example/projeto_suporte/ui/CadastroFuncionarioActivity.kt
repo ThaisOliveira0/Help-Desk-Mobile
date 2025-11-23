@@ -1,31 +1,127 @@
 package com.example.projeto_suporte.ui
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.projeto_suporte.R
 import com.example.projeto_suporte.databinding.ActivityCadastroFuncionarioBinding
+import com.example.projeto_suporte.enums.TipoUsuario
+import com.example.projeto_suporte.model.Usuario
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Calendar
 
 class CadastroFuncionarioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCadastroFuncionarioBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         binding = ActivityCadastroFuncionarioBinding.inflate(layoutInflater)
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        enableEdgeToEdge()
         setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding.btnVoltar.setOnClickListener {
-            finish()
+        val dataInput = binding.txtDataNasc
+        dataInput.setOnClickListener {
+            showDatePicker()
         }
+
+        val btnCadastrar = binding.btnCadastrar
+        btnCadastrar.setOnClickListener {
+            realizarCadastro()
+        }
+    }
+
+    private fun showDatePicker() {
+        var calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePicker = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate =
+                    "%02d/%02d/%04d".format(selectedDay, selectedMonth + 1, selectedYear)
+                binding.txtDataNasc.setText(formattedDate)
+            },
+            year, month, day
+        )
+
+        datePicker.datePicker.maxDate = System.currentTimeMillis()
+
+        datePicker.show()
+    }
+
+    private fun realizarCadastro() {
+        val nome = binding.txtNome.text.toString()
+        val sobrenome = binding.txtSobrenome.text.toString()
+        val email = binding.txtEmail.text.toString()
+        val dataNasc = binding.txtDataNasc.text.toString()
+        val senha = binding.txtSenha.text.toString()
+        val confirmarSenha = binding.txtConfirmarSenha.text.toString()
+
+        if(senha != confirmarSenha){
+            return Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
+        }
+
+        auth.createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful) {
+                    val firebaseUser = auth.currentUser ?: return@addOnCompleteListener
+                    val userId = firebaseUser.uid
+
+                    // atualiza o displayName no Firebase Auth
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(nome)
+                        .build()
+
+                    firebaseUser.updateProfile(profileUpdates).addOnCompleteListener { profileTask ->
+                        if(profileTask.isSuccessful) {
+                            // salva os dados no Firestore
+                            val usuario =
+                                Usuario(userId, nome, sobrenome, email, dataNasc, TipoUsuario.AGENTE.tipo)
+
+                            addNewUser(usuario)
+                        } else {
+                            Toast.makeText(this, "Falha ao salvar o nome de exibição.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, "Erro ao criar usuário: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+
+    private fun addNewUser(usuario: Usuario) {
+        db.collection("Usuarios")
+            .document(usuario.email)
+            .set(usuario)
+            .addOnSuccessListener {
+                // Dados salvos com sucesso no Firestore
+                Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener { e ->
+                // Caso ocorra um erro ao salvar no Firestore
+                Toast.makeText(this, "Ocorreu um erro ao realizar o cadastro.", Toast.LENGTH_SHORT).show()
+                println("Erro ao salvar no Firestore: ${e.message}")
+            }
+
     }
 }

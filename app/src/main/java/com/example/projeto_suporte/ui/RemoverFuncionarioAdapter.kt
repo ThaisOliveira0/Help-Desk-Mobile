@@ -4,40 +4,49 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_suporte.databinding.ItemFuncionarioRemocaoBinding
-import com.example.projeto_suporte.models.Funcionario
+import com.example.projeto_suporte.model.Usuario // Importe sua data class Usuario
 
 class RemoverFuncionarioAdapter(
-    private val funcionarios: MutableList<Funcionario>,
-    private val onRemoveClick: (Funcionario) -> Unit
-) : RecyclerView.Adapter<RemoverFuncionarioAdapter.ViewHolder>() {
+    private val funcionarios: MutableList<Usuario>,
+    private val onExcluirClick: (Usuario) -> Unit // Função que será chamada ao clicar em excluir
+) : RecyclerView.Adapter<RemoverFuncionarioAdapter.FuncionarioViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemFuncionarioRemocaoBinding)
-        : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FuncionarioViewHolder {
         val binding = ItemFuncionarioRemocaoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ViewHolder(binding)
+        return FuncionarioViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FuncionarioViewHolder, position: Int) {
         val funcionario = funcionarios[position]
-
-        holder.binding.tvNomeFuncionario.text = funcionario.nome
-
-        holder.binding.btnRemoverFuncionario.setOnClickListener {
-            onRemoveClick(funcionario)
-
-            val index = holder.adapterPosition
-            if (index != RecyclerView.NO_POSITION) {
-                funcionarios.removeAt(index)
-                notifyItemRemoved(index)
-            }
-        }
+        holder.bind(funcionario)
     }
 
     override fun getItemCount(): Int = funcionarios.size
+
+    fun removerItem(position: Int) {
+        funcionarios.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, funcionarios.size)
+    }
+
+    inner class FuncionarioViewHolder(private val binding: ItemFuncionarioRemocaoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(usuario: Usuario) {
+            binding.tvNomeFuncionario.text = "${usuario.nome} ${usuario.sobrenome}"
+            binding.tvEmailFuncionario.text = usuario.email
+
+            binding.btnExcluir.setOnClickListener {
+                // Pega a posição atual do item no adapter
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onExcluirClick(funcionarios[position])
+                }
+            }
+        }
+    }
 }

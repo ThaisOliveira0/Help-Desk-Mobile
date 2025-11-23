@@ -96,7 +96,7 @@ class CadastroActivity : AppCompatActivity() {
                         if(profileTask.isSuccessful) {
                             // salva os dados no Firestore
                             val usuario =
-                                Usuario(userId, nome, sobrenome, email, dataNasc, TipoUsuario.CLIENTE)
+                                Usuario(userId, nome, sobrenome, email, dataNasc, TipoUsuario.CLIENTE.tipo)
 
                             addNewUser(usuario)
                         } else {

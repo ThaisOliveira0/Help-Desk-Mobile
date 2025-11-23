@@ -1,12 +1,16 @@
 package com.example.projeto_suporte.model
 
-import com.example.projeto_suporte.enums.TipoUsuario
+import android.os.Parcelable
+import com.google.firebase.firestore.IgnoreExtraProperties
+import kotlinx.parcelize.Parcelize
 
+@IgnoreExtraProperties
+@Parcelize
 data class Usuario (
-    val id: String,
-    val nome: String,
-    val sobrenome: String,
-    val email: String,
-    val dataNasc: String,
-    val tipoUsuario: TipoUsuario
-)
+    var id: String = "",
+    var nome: String = "",
+    var sobrenome: String = "",
+    var email: String = "",
+    var dataNasc: String = "",
+    var tipoUsuario: String = ""
+) : Parcelable
