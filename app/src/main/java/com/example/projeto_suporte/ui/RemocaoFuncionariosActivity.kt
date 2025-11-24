@@ -103,6 +103,11 @@ class RemocaoFuncionariosActivity : AppCompatActivity() {
                 if (position != -1) {
                     adapter.removerItem(position)
                 }
+                AlertDialog.Builder(this)
+                    .setTitle("Próximo Passo")
+                    .setMessage("O funcionário foi removido da base de dados do app.\n\nLembre-se de excluir também a conta de login (${usuario.email}) no painel do Firebase Authentication para completar a remoção.")
+                    .setPositiveButton("Entendi") { d, _ -> d.dismiss() }
+                    .show()
             }
             .addOnFailureListener { e ->
                 Log.e("EXCLUSAO_AGENTE", "Erro ao remover agente", e)

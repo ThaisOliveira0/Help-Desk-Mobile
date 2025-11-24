@@ -4,29 +4,27 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projeto_suporte.databinding.ActivityHistoricoBinding
+import com.example.projeto_suporte.model.Chamado // Importe seu modelo de Chamado
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HistoricoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoricoBinding
-    private lateinit var adapter: HistoricoAdapter
+    private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
-    private val chamados = mutableListOf(
-        ItemHistorico.ChamadoItem(1, "10/11/2025", "Software"),
-        ItemHistorico.ChamadoItem(2, "09/11/2025", "Hardware"),
-        ItemHistorico.ChamadoItem(3, "07/11/2025", "Software"),
-        ItemHistorico.ChamadoItem(4, "05/11/2025", "Rede"),
-        ItemHistorico.ChamadoItem(5, "10/11/2025", "Software"),
-        ItemHistorico.ChamadoItem(6, "09/11/2025", "Hardware"),
-        ItemHistorico.ChamadoItem(7, "07/11/2025", "Software"),
-        ItemHistorico.ChamadoItem(8, "05/11/2025", "Rede")
-    )
-
+    // Lista para armazenar todos os chamados buscados do Firestore
+    private val todosChamados = mutableListOf<ItemHistorico.ChamadoItem>()
+    // Mapa para guardar a posição dos cabeçalhos de categoria na lista
     private val categoriasPos = mutableMapOf<String, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,27 +32,24 @@ class HistoricoActivity : AppCompatActivity() {
         binding = ActivityHistoricoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        enableEdgeToEdge()
+        db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setupWindowInsets()
+        setupUI()
+        buscarHistorico()
+    }
 
+    private fun setupUI() {
         binding.recyclerHistorico.layoutManager = LinearLayoutManager(this)
+        binding.btnBack.setOnClickListener { finish() }
 
-        atualizarLista(chamados)
-
-        criarMenuCategorias(chamados)
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
         binding.edtBuscaData.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                val filtrado = chamados.filter {
+                // Filtra a lista já carregada na memória
+                val filtrado = todosChamados.filter {
                     it.data.contains(text.toString(), ignoreCase = true)
                 }
                 atualizarLista(filtrado)
@@ -62,35 +57,77 @@ class HistoricoActivity : AppCompatActivity() {
         })
     }
 
+    private fun buscarHistorico() {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Toast.makeText(this, "Usuário não autenticado.", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        db.collection("Chamados")
+            .whereEqualTo("status", "Fechado") // Filtra APENAS pelos chamados finalizados
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Toast.makeText(this, "Nenhum histórico encontrado.", Toast.LENGTH_SHORT).show()
+                    return@addOnSuccessListener
+                }
+
+                todosChamados.clear()
+                for (document in documents) {
+                    val chamado = document.toObject(Chamado::class.java)
+                    todosChamados.add(
+                        ItemHistorico.ChamadoItem(
+                            id = chamado.id,
+                            data = chamado.dataAbertura,
+                            categoria = chamado.categoria,
+                            numeroChamado = chamado.numeroChamado
+                        )
+                    )
+                }
+                // Ordena por data (opcional, mas recomendado)
+                todosChamados.sortByDescending { it.data }
+
+                // Atualiza a lista e o menu de categorias
+                atualizarLista(todosChamados)
+                criarMenuCategorias(todosChamados)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("HISTORICO", "Erro ao buscar histórico", exception)
+                Toast.makeText(this, "Falha ao carregar histórico.", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // Esta função agora processa a lista e exibe no RecyclerView
     private fun atualizarLista(lista: List<ItemHistorico.ChamadoItem>) {
-        val itens = mutableListOf<ItemHistorico>()
+        val itensAgrupados = mutableListOf<ItemHistorico>()
         categoriasPos.clear()
 
-        val agrupado = lista.groupBy { it.categoria }
+        val agrupadoPorCategoria = lista.groupBy { it.categoria }
 
         var index = 0
-        for ((categoria, chamados) in agrupado) {
-            itens.add(ItemHistorico.CategoriaHeader(categoria))
+        for ((categoria, chamadosDaCategoria) in agrupadoPorCategoria) {
+            itensAgrupados.add(ItemHistorico.CategoriaHeader(categoria))
             categoriasPos[categoria] = index
             index++
 
-            chamados.forEach { item ->
-                itens.add(item)
+            chamadosDaCategoria.forEach { item ->
+                itensAgrupados.add(item)
                 index++
             }
         }
 
-        adapter = HistoricoAdapter(itens)
-        binding.recyclerHistorico.adapter = adapter
+        binding.recyclerHistorico.adapter = HistoricoAdapter(itensAgrupados)
     }
 
+    // Esta função cria os botões de atalho para cada categoria
     private fun criarMenuCategorias(lista: List<ItemHistorico.ChamadoItem>) {
         binding.menuCategorias.removeAllViews()
+        val categoriasUnicas = lista.map { it.categoria }.distinct()
 
-        val categorias = lista.map { it.categoria }.distinct()
-
-        categorias.forEach { categoria ->
-            val btn = android.widget.TextView(this).apply {
+        categoriasUnicas.forEach { categoria ->
+            val btn = TextView(this).apply {
                 text = categoria
                 textSize = 16f
                 setPadding(24, 12, 24, 12)
@@ -105,10 +142,19 @@ class HistoricoActivity : AppCompatActivity() {
 
                 setOnClickListener {
                     val pos = categoriasPos[categoria] ?: 0
-                    binding.recyclerHistorico.scrollToPosition(pos)
+                    (binding.recyclerHistorico.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(pos, 0)
                 }
             }
             binding.menuCategorias.addView(btn)
+        }
+    }
+
+    private fun setupWindowInsets() {
+        //enableEdgeToEdge() // Removido se não for necessário
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }

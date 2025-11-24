@@ -96,6 +96,12 @@ class DetalheTicketActivity : AppCompatActivity() {
         binding.tvDescricao.text = chamado.descricao
         // O status também é útil para o cliente
         binding.tvStatus.text = "Status: ${chamado.status}"
+
+        if (chamado.resposta.isNotEmpty()) {
+            binding.tvResposta.text = chamado.resposta
+        } else {
+            binding.tvResposta.text = "O atendente ainda não forneceu uma resposta para este chamado."
+        }
     }
     // ----> FIM DA LÓGICA CORRIGIDA <----
 }

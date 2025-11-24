@@ -98,10 +98,19 @@ class VisualizarChamadoActivity : AppCompatActivity() {
         binding.txtData.text = "Aberto em: ${chamado.dataAbertura}"
         binding.txtDescricao.text = chamado.descricao
 
-        // Esconde os botões de ação se o chamado não estiver mais "Aberto"
-        if (chamado.status != "Aberto") {
-            binding.btnContato.visibility = View.GONE
-            binding.btnMarcarAnalise.visibility = View.GONE
+        when (chamado.status) {
+            "Aberto" -> {
+                binding.btnMarcarAnalise.visibility = View.VISIBLE
+                binding.btnContato.visibility = View.VISIBLE
+            }
+            "Em Análise" -> {
+                binding.btnMarcarAnalise.visibility = View.GONE
+                binding.btnContato.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.btnMarcarAnalise.visibility = View.GONE
+                binding.btnContato.visibility = View.GONE
+            }
         }
     }
 

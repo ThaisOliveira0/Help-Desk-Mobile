@@ -1,12 +1,11 @@
 package com.example.projeto_suporte.ui
 
 sealed class ItemHistorico {
-
-    data class CategoriaHeader(val categoria: String) : ItemHistorico()
-
+    data class CategoriaHeader(val nome: String) : ItemHistorico()
     data class ChamadoItem(
-        val id: Int,
+        val id: String, // Usaremos o ID real do documento
         val data: String,
-        val categoria: String
+        val categoria: String,
+        val numeroChamado: String // Adicionado para exibição
     ) : ItemHistorico()
 }

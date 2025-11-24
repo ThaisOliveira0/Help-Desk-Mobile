@@ -2,12 +2,13 @@
     <string name="app_name">Projeto-Suporte</string>
 
     <string-array name="opcoes_categorias">
-        <item>Solicitações / Requisições</item>
-        <item>Outros</item>
-        <item>Periféricos e Acessos</item>
-        <item>Software / Sistemas</item>
+        <item>Conectividade</item>
         <item>Hardware</item>
-        <item>Conectividade e Comunicação</item>
-
+        <item>Software / Sistemas</item>
+        <item>Contas e Acessos</item>
+        <item>Periféricos</item>
+        <item>Solicitações / Requisições</item>
+        <item>Email e Comunicação</item>
+        <item>Outros</item>
     </string-array>
 </resources>
