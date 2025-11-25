@@ -13,4 +13,8 @@ data class Usuario (
     var email: String = "",
     var dataNasc: String = "",
     var tipoUsuario: String = ""
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return "$nome $sobrenome"
+    }
+}

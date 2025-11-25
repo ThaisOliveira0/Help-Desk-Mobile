@@ -1,9 +1,9 @@
 package com.example.projeto_suporte.ui
 
+import android.content.Intent // IMPORTAÇÃO NECESSÁRIA
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.example.projeto_suporte.databinding.ItemHistoricoCategoriaBinding
 import com.example.projeto_suporte.databinding.ItemHistoricoChamadoBinding
 import java.lang.IllegalArgumentException
@@ -28,9 +28,16 @@ class HistoricoAdapter(private val itens: List<ItemHistorico>) : RecyclerView.Ad
         fun bind(item: ItemHistorico.ChamadoItem) {
             binding.tvNumeroChamado.text = "Nº: ${item.numeroChamado}"
             binding.tvDataChamado.text = item.data
-            // Adicionar um listener de clique se quiser abrir os detalhes do chamado
+
             binding.root.setOnClickListener {
-                // Ex: Iniciar uma nova activity com o ID do chamado (item.id)
+                val context = it.context
+                val intent = Intent(context, DetalheTicketActivity::class.java)
+
+                // --- CORREÇÃO APLICADA AQUI ---
+                // Altera a chave para "ticket_id", que é a que DetalheTicketActivity espera.
+                intent.putExtra("ticket_id", item.id)
+
+                context.startActivity(intent)
             }
         }
     }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F5F5F5">
 
+    <!-- Barra de Título (Header) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -14,10 +16,12 @@
 
         <ImageView
             android:id="@+id/btnVoltar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/ic_arrow_back"
-            android:padding="4dp" />
+            android:padding="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Voltar" />
 
         <TextView
             android:id="@+id/txtTituloHeader"
@@ -28,151 +32,155 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:layout_marginStart="12dp" />
-
     </LinearLayout>
 
-    <ScrollView
+    <!-- Container Principal -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/contentView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="#FFFFFF"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Agente"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="#333" />
-
-                <Spinner
-                    android:id="@+id/spinnerAgentes"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="#FFFFFF"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:text="Email"
-                    android:textStyle="bold"
-                    android:textColor="#444"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/txtEmailAgente"
-                    android:text="carregando..."
-                    android:textSize="16sp"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="#FFFFFF"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:text="Data de admissão"
-                    android:textStyle="bold"
-                    android:textColor="#444"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/txtDataAdmissao"
-                    android:text="carregando..."
-                    android:textSize="16sp"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="#FFFFFF"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:text="Chamados resolvidos"
-                    android:textStyle="bold"
-                    android:textColor="#444"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/txtResolvidos"
-                    android:text="0"
-                    android:textSize="16sp"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="#FFFFFF"
-                android:elevation="4dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:text="Conversas abertas"
-                    android:textStyle="bold"
-                    android:textColor="#444"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!-- Card do Spinner -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:background="@drawable/background_card"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:id="@+id/txtConversasAbertas"
-                    android:text="0"
-                    android:textSize="16sp"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selecione o Agente"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#333" />
+
+                    <Spinner
+                        android:id="@+id/spinnerAgentes"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+                <!-- Grupo de cards para as estatísticas -->
+                <LinearLayout
+                    android:id="@+id/groupStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:orientation="vertical">
+
+                    <!-- Card do Email -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:background="@drawable/background_card"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:text="Email"
+                            android:textStyle="bold"
+                            android:textColor="#444"
+                            android:textSize="15sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtEmailAgente"
+                            tools:text="joao.silva@exemplo.com"
+                            android:textSize="16sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <!-- Card de Chamados Resolvidos -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:background="@drawable/background_card"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:text="Chamados resolvidos"
+                            android:textStyle="bold"
+                            android:textColor="#444"
+                            android:textSize="15sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtResolvidos"
+                            tools:text="27"
+                            android:textSize="16sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <!-- Card de Conversas Abertas -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:background="@drawable/background_card"
+                        android:elevation="4dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="Conversas abertas"
+                            android:textStyle="bold"
+                            android:textColor="#444"
+                            android:textSize="15sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtConversasAbertas"
+                            tools:text="5"
+                            android:textSize="16sp"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
+        </ScrollView>
 
-        </LinearLayout>
-    </ScrollView>
+        <!-- ProgressBar que fica no centro, por cima do ScrollView -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+    </FrameLayout>
 
 </LinearLayout>

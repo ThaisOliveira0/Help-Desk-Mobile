@@ -1,5 +1,6 @@
 package com.example.projeto_suporte.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -20,6 +21,7 @@ class AbrirTicketActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAbrirTicketBinding.inflate(layoutInflater)
@@ -27,10 +29,13 @@ class AbrirTicketActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        val usuario = FirebaseAuth.getInstance().currentUser
 
-        if(auth.currentUser == null) {
+        if(usuario == null) {
             finish()
             return
+        } else {
+            binding.txtSaudacao.text = "Olá, ${usuario.displayName}"
         }
 
         setupSpinner()

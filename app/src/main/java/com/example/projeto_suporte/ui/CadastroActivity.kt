@@ -46,14 +46,29 @@ class CadastroActivity : AppCompatActivity() {
         btnCadastrar.setOnClickListener {
             realizarCadastro()
         }
+
+        val btnVoltar = binding.btnVoltar
+        btnVoltar.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showDatePicker() {
-        var calendar = Calendar.getInstance()
+        // 1. Pega a instância do calendário atual
+        val calendar = Calendar.getInstance()
+
+        // 2. Define a data máxima permitida (limite de idade)
+        // Clona o calendário atual para não modificar a instância original
+        val maxDateCalendar = Calendar.getInstance()
+        // Subtrai 15 anos da data atual
+        maxDateCalendar.add(Calendar.YEAR, -15)
+
+        // Pega os valores da data de hoje para iniciar o seletor
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        // 3. Cria o DatePickerDialog
         val datePicker = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
@@ -64,8 +79,11 @@ class CadastroActivity : AppCompatActivity() {
             year, month, day
         )
 
-        datePicker.datePicker.maxDate = System.currentTimeMillis()
+        // 4. Aplica a restrição de data máxima
+        // O usuário não poderá selecionar uma data posterior a "hoje - 15 anos"
+        datePicker.datePicker.maxDate = maxDateCalendar.timeInMillis
 
+        // 5. Exibe o seletor de data
         datePicker.show()
     }
 

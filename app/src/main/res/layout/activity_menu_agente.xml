@@ -5,7 +5,7 @@
     android:background="#F7F7F7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChamadosActivity">
+    tools:context=".ui.MenuAgenteActivity">
 
 
     <LinearLayout
@@ -15,21 +15,28 @@
         android:gravity="center_vertical"
         android:background="#A8B5E0"
         android:paddingTop="24dp"
-    android:paddingBottom="12dp"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:layout_marginBottom="12dp">
+        android:paddingBottom="12dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_marginBottom="12dp">
 
-    <EditText
-            android:id="@+id/edtPesquisa"
+        <!-- O EditText foi removido daqui. O espaço agora é preenchido com um componente "Space" -->
+        <Space
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- BOTÃO PARA HISTÓRICO ADICIONADO -->
+        <ImageView
+            android:id="@+id/btnHistorico"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:hint="Pesquise um chamado..."
-            android:background="@drawable/rounded_edittext"
-            android:paddingStart="12dp"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:inputType="text" />
+            android:src="@drawable/ic_history"
+            android:contentDescription="Ver histórico de chamados"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            app:tint="@android:color/white"
+            android:layout_marginStart="8dp" />
 
         <ImageView
             android:id="@+id/btnGuia"
@@ -117,8 +124,7 @@
         android:contentDescription="Logout"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="end"
         android:layout_margin="16dp" />
 
 </LinearLayout>

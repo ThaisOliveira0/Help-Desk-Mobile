@@ -63,6 +63,11 @@ class MenuAgenteActivity : AppCompatActivity() {
             val intent = Intent(this, ListaChatsActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnHistorico.setOnClickListener {
+            startActivity(Intent(this, HistoricoActivity::class.java))
+        }
+
         binding.btnLogout.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
