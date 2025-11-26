@@ -12,7 +12,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projeto_suporte.databinding.ActivityHistoricoBinding
-import com.example.projeto_suporte.model.Chamado // Importe seu modelo de Chamado
+import com.example.projeto_suporte.model.Chamado
+import com.example.projeto_suporte.ui.models.ItemHistorico
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 

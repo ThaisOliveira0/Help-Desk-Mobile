@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_suporte.databinding.ItemHistoricoCategoriaBinding
 import com.example.projeto_suporte.databinding.ItemHistoricoChamadoBinding
+import com.example.projeto_suporte.ui.models.ItemHistorico
 import java.lang.IllegalArgumentException
 
 class HistoricoAdapter(private val itens: List<ItemHistorico>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

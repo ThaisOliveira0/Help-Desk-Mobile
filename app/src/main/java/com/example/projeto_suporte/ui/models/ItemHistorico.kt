@@ -1,4 +1,4 @@
-package com.example.projeto_suporte.ui
+package com.example.projeto_suporte.ui.models
 
 sealed class ItemHistorico {
     data class CategoriaHeader(val nome: String) : ItemHistorico()

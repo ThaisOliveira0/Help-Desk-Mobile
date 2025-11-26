@@ -30,9 +30,6 @@
             android:name=".ui.ResponderChamadoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ChatsAgenteActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.GuiaActivity"
             android:exported="false" />
         <activity
@@ -46,9 +43,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.HistoricoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ChatsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.DetalheTicketActivity"

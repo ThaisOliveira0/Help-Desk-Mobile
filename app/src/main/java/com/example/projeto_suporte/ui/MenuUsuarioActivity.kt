@@ -13,7 +13,6 @@ import com.example.projeto_suporte.model.Chamado
 import com.example.projeto_suporte.ui.TicketAdapter
 import com.example.projeto_suporte.ui.AbrirTicketActivity
 import com.example.projeto_suporte.ui.DetalheTicketActivity
-import com.example.projeto_suporte.ui.ChatsActivity
 import com.example.projeto_suporte.ui.models.Ticket
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
